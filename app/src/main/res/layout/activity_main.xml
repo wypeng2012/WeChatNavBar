@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+  <android.support.v4.view.ViewPager
+      android:id="@+id/view_pager"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1">
+
+  </android.support.v4.view.ViewPager>
+
+ <party.loveit.wechartnavbarlibrary.WeChatNavBar
+     android:id="@+id/nav_bar"
+     android:layout_width="match_parent"
+     android:layout_height="55dp"
+     android:background="#000"
+     app:textColorNormal="@color/colorPrimary"
+     app:textColorSelect="@color/colorAccent"
+     app:textSize="10sp"
+     app:textPaddingTop="3dp"/>
+
+</LinearLayout>

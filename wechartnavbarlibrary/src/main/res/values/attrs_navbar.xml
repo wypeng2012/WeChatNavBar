@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WeChatNavBar">
+        <attr name="textSize" format="dimension"/>
+        <attr name="textPaddingTop" format="dimension"/>
+        <attr name="textColorSelect" format="color"/>
+        <attr name="textColorNormal" format="color"/>
+    </declare-styleable>
+</resources>
