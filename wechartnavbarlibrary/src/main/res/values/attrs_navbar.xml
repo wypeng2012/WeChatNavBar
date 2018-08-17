@@ -5,5 +5,7 @@
         <attr name="textPaddingTop" format="dimension"/>
         <attr name="textColorSelect" format="color"/>
         <attr name="textColorNormal" format="color"/>
+        <attr name="textNormalBold" format="boolean"/>
+        <attr name="textSelectBold" format="boolean"/>
     </declare-styleable>
 </resources>

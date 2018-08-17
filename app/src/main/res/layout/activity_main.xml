@@ -24,6 +24,8 @@
      app:textColorNormal="@color/colorPrimary"
      app:textColorSelect="@color/colorAccent"
      app:textSize="10sp"
-     app:textPaddingTop="3dp"/>
+     app:textPaddingTop="3dp"
+     app:textNormalBold="false"
+     app:textSelectBold="true"/>
 
 </LinearLayout>

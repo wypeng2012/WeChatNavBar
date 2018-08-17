@@ -19,6 +19,8 @@ import android.view.View;
     private int mTextColorSelect;
     private int mTextColorNormal;
     private int mTextPaddingTop;
+    private boolean mTextNormalIsBold;
+    private boolean mTextSelectIsBold;
     private Paint mTextPaintNormal;
     private Paint mTextPaintSelect;
     private int mViewHeight, mViewWidth;
@@ -43,7 +45,7 @@ import android.view.View;
 
     }
     TabItem(Context context,int textSize, int textColorSelect, int textColorNormal,
-            String textValue, int iconNormalRes, int iconSelectRes, int textPaddingTop){
+            String textValue, int iconNormalRes, int iconSelectRes, int textPaddingTop, boolean isNormalTextBold, boolean isSelectTextBold){
         this(context);
         mBoundText = new Rect();
         this.mTextSize = textSize;
@@ -53,6 +55,8 @@ import android.view.View;
         this.mIconNormal = BitmapFactory.decodeResource(getResources(), iconNormalRes);
         this.mIconSelect = BitmapFactory.decodeResource(getResources(), iconSelectRes);
         this.mTextPaddingTop = textPaddingTop;
+        this.mTextNormalIsBold = isNormalTextBold;
+        this.mTextSelectIsBold = isSelectTextBold;
         initText();
     }
 
@@ -76,12 +80,14 @@ import android.view.View;
         mTextPaintNormal.setColor(mTextColorNormal);
         mTextPaintNormal.setAntiAlias(true);
         mTextPaintNormal.setAlpha(0xff);
+        mTextPaintNormal.setFakeBoldText(mTextNormalIsBold);
 
         mTextPaintSelect = new Paint();
         mTextPaintSelect.setTextSize(mTextSize);
         mTextPaintSelect.setColor(mTextColorSelect);
         mTextPaintSelect.setAntiAlias(true);
         mTextPaintSelect.setAlpha(0);
+        mTextPaintSelect.setFakeBoldText(mTextSelectIsBold);
 
         mIconPaintSelect = new Paint(Paint.ANTI_ALIAS_FLAG) ;
         mIconPaintSelect.setAlpha(0);

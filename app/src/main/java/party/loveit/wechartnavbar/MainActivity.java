@@ -55,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         List<NavModel> models = new ArrayList<>();
         models.add(new NavModel.Builder().iconNormalRes(R.drawable.tabwallet_normal)
                                          .iconSelectRes(R.drawable.tabwallet_pressed)
-                                         .textValue("wallet")
+                                         .textValue("我")
                                          .bulid());
         models.add(new NavModel.Builder().iconNormalRes(R.drawable.tabexchange_normal)
                                          .iconSelectRes(R.drawable.tabexchange_pressed)

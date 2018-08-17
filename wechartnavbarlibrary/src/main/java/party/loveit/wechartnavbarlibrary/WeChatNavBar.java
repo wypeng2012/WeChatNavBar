@@ -18,15 +18,18 @@ public class WeChatNavBar extends LinearLayout {
     private int mTextPaddingTop = 0;
     private int mTextColorSelect;
     private int mTextColorNormal;
+    private boolean mTextNormalIsBold;
+    private boolean mTextSelectIsBold;
     private ViewPager mViewPager;
     private ViewPager.OnPageChangeListener mOnPageChangeListener;
     private Context mContext;
+
     public WeChatNavBar(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public WeChatNavBar(Context context, @Nullable AttributeSet attrs) {
-        this(context, attrs,0);
+        this(context, attrs, 0);
     }
 
     public WeChatNavBar(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
@@ -43,6 +46,8 @@ public class WeChatNavBar extends LinearLayout {
         mTextPaddingTop = typedArray.getDimensionPixelSize(R.styleable.WeChatNavBar_textPaddingTop, 0);
         mTextColorSelect = typedArray.getColor(R.styleable.WeChatNavBar_textColorSelect, 0xff45c01a);
         mTextColorNormal = typedArray.getColor(R.styleable.WeChatNavBar_textColorNormal, 0xfffd6800);
+        mTextNormalIsBold = typedArray.getBoolean(R.styleable.WeChatNavBar_textNormalBold, false);
+        mTextSelectIsBold = typedArray.getBoolean(R.styleable.WeChatNavBar_textSelectBold, false);
         typedArray.recycle();
     }
 
@@ -56,19 +61,20 @@ public class WeChatNavBar extends LinearLayout {
 
     /**
      * before you should call setModels method
+     *
      * @param viewPager
      * @param curPage
      */
-    public void setViewPager(ViewPager viewPager, int curPage){
-        if(viewPager == null)
+    public void setViewPager(ViewPager viewPager, int curPage) {
+        if (viewPager == null)
             throw new RuntimeException("ViewPager can't null");
-        if(mModels == null || mModels.size() == 0)
+        if (mModels == null || mModels.size() == 0)
             throw new RuntimeException("you must call setModels method before");
-            mViewPager = viewPager;
-            mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mViewPager = viewPager;
+        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                if(mOnPageChangeListener != null)
+                if (mOnPageChangeListener != null)
                     mOnPageChangeListener.onPageScrolled(position, positionOffset, positionOffsetPixels);
 
 
@@ -87,17 +93,17 @@ public class WeChatNavBar extends LinearLayout {
 
             @Override
             public void onPageSelected(int position) {
-                if(mOnPageChangeListener != null)
+                if (mOnPageChangeListener != null)
                     mOnPageChangeListener.onPageSelected(position);
             }
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                if(mOnPageChangeListener != null)
+                if (mOnPageChangeListener != null)
                     mOnPageChangeListener.onPageScrollStateChanged(state);
             }
         });
-        mViewPager.setCurrentItem(curPage,false);
+        mViewPager.setCurrentItem(curPage, false);
     }
 
     private void resetOtherTabs() {
@@ -106,15 +112,15 @@ public class WeChatNavBar extends LinearLayout {
         }
     }
 
-    public void setModels(List<NavModel> models){
-        if(models == null || models.size() < 2)
+    public void setModels(List<NavModel> models) {
+        if (models == null || models.size() < 2)
             throw new RuntimeException("models is null or size < 2");
         mModels.clear();
         mModels.addAll(models);
-        for (int i = 0;i < models.size(); i ++){
+        for (int i = 0; i < models.size(); i++) {
             NavModel model = models.get(i);
-           TabItem item = new TabItem(mContext,mTextSize,mTextColorSelect,mTextColorNormal,model.getTextValue(),
-                   model.getIconNormalRes(),model.getIconSelectRes(),mTextPaddingTop);
+            TabItem item = new TabItem(mContext, mTextSize, mTextColorSelect, mTextColorNormal, model.getTextValue(),
+                    model.getIconNormalRes(), model.getIconSelectRes(), mTextPaddingTop, mTextNormalIsBold,mTextSelectIsBold);
 
           /* item.setIconNormal(model.getIconNormalRes());
            item.setIconSelect(model.getIconSelectRes());
@@ -122,28 +128,28 @@ public class WeChatNavBar extends LinearLayout {
            item.setTextColorSelect(mTextColorSelect);
            item.setTextValue(model.getTextValue());
            item.setTextSize(mTextSize);*/
-           final int index = i;
-           item.setOnClickListener(new OnClickListener() {
-               @Override
-               public void onClick(View v) {
-                   resetOtherTabs();
-                   mTabItems.get(index).setTabAlpha(1.0f);
-                   mViewPager.setCurrentItem(index, false);
-               }
-           });
-           mTabItems.add(item);
-           addView(item);
-         LinearLayout.LayoutParams params = (LayoutParams) item.getLayoutParams();
-         params.height = LayoutParams.MATCH_PARENT;
-         params.width = 0;
-         params.weight = 1;
-         item.setLayoutParams(params);
+            final int index = i;
+            item.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    resetOtherTabs();
+                    mTabItems.get(index).setTabAlpha(1.0f);
+                    mViewPager.setCurrentItem(index, false);
+                }
+            });
+            mTabItems.add(item);
+            addView(item);
+            LinearLayout.LayoutParams params = (LayoutParams) item.getLayoutParams();
+            params.height = LayoutParams.MATCH_PARENT;
+            params.width = 0;
+            params.weight = 1;
+            item.setLayoutParams(params);
         }
     }
 
-    public TabItem getTabItem(int index){
+    public TabItem getTabItem(int index) {
         TabItem item = null;
-        if(mTabItems != null && mTabItems.size() > index)
+        if (mTabItems != null && mTabItems.size() > index)
             item = mTabItems.get(index);
         return item;
     }
